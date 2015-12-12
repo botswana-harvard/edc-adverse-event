@@ -1,1 +1,1 @@
-# edc-adverse-event
+# edc-death-report
