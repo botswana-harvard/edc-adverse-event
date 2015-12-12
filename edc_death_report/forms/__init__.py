@@ -1,1 +1,2 @@
 from .base_infant_death_form import BaseInfantDeathForm
+from .death_report_form_mixin import DeathReportFormMixin

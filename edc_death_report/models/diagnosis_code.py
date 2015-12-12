@@ -27,4 +27,4 @@ class DiagnosisCode (BaseModel):
         return '{}: {}'.format(self.code, self.short_name)
 
     class Meta:
-        app_label = "death_report"
+        app_label = 'edc_death_report'

@@ -5,10 +5,10 @@ from edc_base.model.validators.date import (
     date_not_before_study_start, date_not_future, datetime_not_before_study_start,
     datetime_not_future)
 from edc_constants.choices import YES_NO
-from edc_death_report.models.diagnosis_code import DiagnosisCode
 
 from .cause import Cause
 from .cause_category import CauseCategory
+from .diagnosis_code import DiagnosisCode
 from .medical_responsibility import MedicalResponsibility
 from .reason_hospitalized import ReasonHospitalized
 
@@ -28,13 +28,14 @@ class DeathReportMixin(models.Model):
             date_not_before_study_start,
             date_not_future])
 
-    death_cause_info = models.ForeignKey(
+    cause = models.ForeignKey(
         to=Cause,
         verbose_name=(
-            'What is the primary source of cause of death information? (if multiple source of information, '
+            'What is the primary source of cause of death information? '
+            '(if multiple source of information, '
             'list one with the smallest number closest to the top of the list) '))
 
-    death_cause_info_other = OtherCharField(
+    cause_other = OtherCharField(
         verbose_name="if other specify...",
         blank=True,
         null=True)
@@ -51,12 +52,13 @@ class DeathReportMixin(models.Model):
             'Note: Cardiac and pulmonary arrest are not major reasons and should not '
             'be used to describe major cause'))
 
-    death_cause_category = models.ForeignKey(
+    cause_category = models.ForeignKey(
         to=CauseCategory,
-        verbose_name="Based on the above description, what category best defines the major cause of death? ",
+        verbose_name=("Based on the above description, what category "
+                      "best defines the major cause of death? "),
         help_text="")
 
-    death_cause_category_other = OtherCharField(
+    cause_category_other = OtherCharField(
         verbose_name="if other specify...",
         blank=True,
         null=True)
@@ -74,14 +76,16 @@ class DeathReportMixin(models.Model):
         null=True)
 
     reason_hospitalized_other = models.TextField(
-        verbose_name="if other illness or pathogen specify or non infectious reason, please specify below:",
+        verbose_name=("if other illness or pathogen specify or non "
+                      "infectious reason, please specify below:"),
         max_length=250,
         blank=True,
         null=True)
 
     days_hospitalized = models.IntegerField(
         verbose_name=(
-            "For how many days was the participant hospitalised during the illness immediately before death? "),
+            "For how many days was the participant hospitalised during "
+            "the illness immediately before death? "),
         help_text="in days",
         default=0)
 
@@ -100,13 +104,13 @@ class DeathReportMixin(models.Model):
         choices=YES_NO,
         verbose_name="Will an autopsy be performed later  ")
 
-    dx_code = models.ForeignKey(
+    diagnosis_code = models.ForeignKey(
         DiagnosisCode,
         max_length=25,
         verbose_name="Please code the cause of death as one of the following:",
         help_text="Use diagnosis code from Diagnosis Reference Listing")
 
-    dx_code_other = OtherCharField(
+    diagnosis_code_other = OtherCharField(
         verbose_name="if other specify...",
         blank=True,
         null=True)
@@ -114,7 +118,8 @@ class DeathReportMixin(models.Model):
     medical_responsibility = models.ForeignKey(
         MedicalResponsibility,
         verbose_name=(
-            "Who was responsible for primary medical care of the participant during the month prior to death?"),
+            "Who was responsible for primary medical care of the "
+            "participant during the month prior to death?"),
         help_text="")
 
     def get_report_datetime(self):
