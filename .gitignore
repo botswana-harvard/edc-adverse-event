@@ -8,6 +8,7 @@ __pycache__/
 .project
 .settings
 test-*
+edc_death_report/db.sqlite3
 # Distribution / packaging
 .Python
 env/
