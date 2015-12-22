@@ -12,7 +12,7 @@ from edc_death_report.models.diagnosis_code import DiagnosisCode
 from edc_death_report.models.medical_responsibility import MedicalResponsibility
 from edc_death_report.forms.death_report_form_mixin import DeathReportFormMixin
 from edc_constants.constants import YES, NO
-from edc.subject.visit_tracking.models import BaseVisitTracking, PreviousVisitMixin
+from edc_visit_tracking.models import BaseVisitTracking, PreviousVisitMixin
 from edc.entry_meta_data.models import MetaDataMixin
 from edc_offstudy.models import OffStudyModelMixin, OffStudyMixin
 from edc.subject.registration.models.registered_subject import RegisteredSubject
