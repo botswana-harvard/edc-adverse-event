@@ -11,7 +11,7 @@ from .medical_responsibility import MedicalResponsibility
 from .reason_hospitalized import ReasonHospitalized
 
 
-class DeathReportMixin(models.Model):
+class DeathReportModelMixin(models.Model):
 
     death_date = models.DateField(
         verbose_name="Date of Death:",
@@ -112,9 +112,6 @@ class DeathReportMixin(models.Model):
             "Who was responsible for primary medical care of the "
             "participant during the month prior to death?"),
         help_text="")
-
-    def get_report_datetime(self):
-        return self.report_datetime
 
     class Meta:
         abstract = True

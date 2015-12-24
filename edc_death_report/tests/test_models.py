@@ -7,7 +7,7 @@ from edc.entry_meta_data.models import MetaDataMixin
 from edc.subject.registration.models.registered_subject import RegisteredSubject
 from edc_base.model.models.base_uuid_model import BaseUuidModel
 from edc_death_report.forms.death_report_form_mixin import DeathReportFormMixin
-from edc_death_report.models.death_report_mixin import DeathReportMixin
+from edc_death_report.models.death_report_mixin import DeathReportModelMixin
 from edc_offstudy.models import OffStudyModelMixin, OffStudyMixin
 from edc_visit_tracking.models import BaseVisitTracking, PreviousVisitMixin, CrfModelMixin
 
@@ -41,7 +41,7 @@ class OffStudyModel(CrfModelMixin, OffStudyModelMixin, BaseUuidModel):
         app_label = 'edc_death_report'
 
 
-class DeathReport(CrfModelMixin, DeathReportMixin, BaseUuidModel):
+class DeathReport(CrfModelMixin, DeathReportModelMixin, BaseUuidModel):
 
     registered_subject = models.OneToOneField(RegisteredSubject)
 
