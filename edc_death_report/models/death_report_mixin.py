@@ -1,9 +1,7 @@
 from django.db import models
 
 from edc_base.model.fields import OtherCharField
-from edc_base.model.validators.date import (
-    date_not_before_study_start, date_not_future, datetime_not_before_study_start,
-    datetime_not_future)
+from edc_base.model.validators.date import date_not_before_study_start, date_not_future
 from edc_constants.choices import YES_NO
 
 from .cause import Cause
@@ -14,13 +12,6 @@ from .reason_hospitalized import ReasonHospitalized
 
 
 class DeathReportMixin(models.Model):
-
-    report_datetime = models.DateTimeField(
-        verbose_name="Visit Date and Time",
-        validators=[
-            datetime_not_before_study_start,
-            datetime_not_future],
-        help_text='Date and time of this report')
 
     death_date = models.DateField(
         verbose_name="Date of Death:",

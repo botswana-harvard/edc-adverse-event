@@ -1,68 +1,16 @@
 from dateutil.relativedelta import relativedelta
 
-from django import forms
-from django.db import models
 from django.utils import timezone
 
-from edc_death_report.models.death_report_mixin import DeathReportMixin
-from edc_base.model.models.base_uuid_model import BaseUuidModel
 from edc_death_report.models.cause import Cause
 from edc_death_report.models.cause_category import CauseCategory
 from edc_death_report.models.diagnosis_code import DiagnosisCode
 from edc_death_report.models.medical_responsibility import MedicalResponsibility
-from edc_death_report.forms.death_report_form_mixin import DeathReportFormMixin
 from edc_constants.constants import YES, NO
-from edc_visit_tracking.models import BaseVisitTracking, PreviousVisitMixin
-from edc.entry_meta_data.models import MetaDataMixin
-from edc_offstudy.models import OffStudyModelMixin, OffStudyMixin
-from edc.subject.registration.models.registered_subject import RegisteredSubject
 from edc_death_report.models.reason_hospitalized import ReasonHospitalized
 
 from .base_test import BaseTest
-
-
-class VisitModel(OffStudyMixin, MetaDataMixin, PreviousVisitMixin, BaseVisitTracking):
-
-    OFF_STUDY_MODEL = ('edc_death_report', 'OffStudyModel')
-
-    REQUIRES_PREVIOUS_VISIT = True
-
-    def get_subject_identifier(self):
-        return self.appointment.registered_subject.subject_identifier
-
-    def custom_post_update_entry_meta_data(self):
-        pass
-
-    def get_requires_consent(self):
-        return False
-
-    class Meta:
-        app_label = 'edc_death_report'
-
-
-class OffStudyModel(OffStudyModelMixin, BaseUuidModel):
-
-    VISIT_MODEL = VisitModel
-
-    registered_subject = models.OneToOneField(RegisteredSubject)
-
-    class Meta:
-        app_label = 'edc_death_report'
-
-
-class DeathReport(DeathReportMixin, BaseUuidModel):
-
-    registered_subject = models.OneToOneField(RegisteredSubject)
-
-    class Meta:
-        app_label = 'edc_death_report'
-
-
-class DeathReportForm(DeathReportFormMixin, forms.ModelForm):
-
-    class Meta:
-        model = DeathReport
-        fields = '__all__'
+from .test_models import DeathReportForm, TestVisitModel, DeathReport
 
 
 class TestDeathReport(BaseTest):
@@ -73,7 +21,11 @@ class TestDeathReport(BaseTest):
             self.registered_subject.registration_datetime = timezone.now() - relativedelta(weeks=3)
             self.registered_subject.dob = self.test_consent.dob
             self.registered_subject.save()
+        test_visit_model = TestVisitModel.objects.create(
+            appointment=self.appointment,
+            report_datetime=timezone.now())
         self.data = {
+            'test_visit_model': test_visit_model.id,
             'comment': None,
             'death_date': timezone.now().date(),
             'illness_duration': 1,
@@ -94,8 +46,11 @@ class TestDeathReport(BaseTest):
     def test_create_model_instance(self):
         with self.assertRaises(Exception) as cm:
             try:
+                test_visit_model = TestVisitModel.objects.get(
+                    appointment=self.appointment)
                 DeathReport.objects.create(
                     registered_subject=self.registered_subject,
+                    test_visit_model=test_visit_model,
                     report_datetime=timezone.now(),
                     death_date=(timezone.now() - relativedelta(weeks=1)).date(),
                     cause=Cause.objects.all().first(),

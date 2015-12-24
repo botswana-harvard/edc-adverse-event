@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'edc_base',
+    'edc_offstudy',
     'edc.subject.registration',
     'edc.subject.subject_config',
     'edc.apps.app_configuration',
