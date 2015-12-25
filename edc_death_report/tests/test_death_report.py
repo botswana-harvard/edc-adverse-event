@@ -39,7 +39,6 @@ class TestDeathReport(BaseTest):
             'participant_hospitalized': YES,
             'reason_hospitalized': ReasonHospitalized.objects.all().first().id,
             'days_hospitalized': 3,
-            'registered_subject': self.registered_subject.id,
             'report_datetime': timezone.now(),
         }
 
@@ -49,7 +48,6 @@ class TestDeathReport(BaseTest):
                 test_visit_model = TestVisitModel.objects.get(
                     appointment=self.appointment)
                 DeathReport.objects.create(
-                    registered_subject=self.registered_subject,
                     test_visit_model=test_visit_model,
                     report_datetime=timezone.now(),
                     death_date=(timezone.now() - relativedelta(weeks=1)).date(),

@@ -7,7 +7,6 @@ class DeathReportFormMixin(object):
 
     def clean(self):
         cleaned_data = super(DeathReportFormMixin, self).clean()
-        self.validate_report_datetime_and_registration()
         self.validate_report_datetime_and_dob()
         self.validate_death_date_and_dob()
         self.validate_death_date_and_registration()
@@ -56,22 +55,20 @@ class DeathReportFormMixin(object):
                     'If the participant was not hospitalized, do '
                     'not indicate for how many days.')
 
-    def validate_report_datetime_and_registration(self):
-        cleaned_data = self.cleaned_data
-        if cleaned_data.get('report_datetime') < cleaned_data.get('registered_subject').registration_datetime:
-            raise forms.ValidationError("Report date cannot be before date registered")
-
     def validate_death_date_and_registration(self):
         cleaned_data = self.cleaned_data
-        if cleaned_data.get('death_date') < cleaned_data.get('registered_subject').registration_datetime.date():
+        registered_subject = cleaned_data.get(self._meta.model.visit_model_attr).appointment.registered_subject
+        if cleaned_data.get('death_date') < registered_subject.registration_datetime.date():
             raise forms.ValidationError("Death date cannot be before date registered")
 
     def validate_death_date_and_dob(self):
         cleaned_data = self.cleaned_data
-        if cleaned_data.get('death_date') < cleaned_data.get('registered_subject').dob:
+        registered_subject = cleaned_data.get(self._meta.model.visit_model_attr).appointment.registered_subject
+        if cleaned_data.get('death_date') < registered_subject.dob:
             raise forms.ValidationError("Death date cannot be before date of birth")
 
     def validate_report_datetime_and_dob(self):
         cleaned_data = self.cleaned_data
-        if cleaned_data.get('report_datetime').date() < cleaned_data.get('registered_subject').dob:
+        registered_subject = cleaned_data.get(self._meta.model.visit_model_attr).appointment.registered_subject
+        if cleaned_data.get('report_datetime').date() < registered_subject.dob:
             raise forms.ValidationError("Report date cannot be before date of birth")

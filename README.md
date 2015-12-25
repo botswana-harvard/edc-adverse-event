@@ -4,14 +4,13 @@
 # edc-death-report
 
 
-A death report model class is declared in your app just like any other CRF where the only difference is the additional foreign key to `RegisteredSubject`:
+A death report model class is declared in your app just like any other CRF:
 
 	from django.db import models
 	from edc_base.model.models import BaseUuidModel
 	from edc_base.audit_trail import AuditTrail
 	from edc_death_report.models import DeathReportModelMixin
 	from edc.entry_meta_data.managers import EntryMetaDataManager
-	from edc.subject.registration.models import RegisteredSubject
 	from edc_visit_tracking.models import CrfModelMixin
 	
 	from .subject_visit import SubjectVisit	
@@ -19,9 +18,7 @@ A death report model class is declared in your app just like any other CRF where
 	class SubjectDeathReport(CrfModelMixin, DeathReportModelMixin, BaseUuidModel):
 	
 	    """ A model completed by the user on the subject's death. """
-	
-	    registered_subject = models.OneToOneField(RegisteredSubject)
-	
+		
 	    subject_visit = models.OneToOneField(SubjectVisit)
 	
 	    history = AuditTrail()

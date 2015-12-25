@@ -4,7 +4,6 @@ from django import forms
 from django.db import models
 
 from edc.entry_meta_data.models import MetaDataMixin
-from edc.subject.registration.models import RegisteredSubject
 from edc_base.model.models import BaseUuidModel
 from edc_death_report.forms import DeathReportFormMixin
 from edc_death_report.models import DeathReportModelMixin
@@ -33,8 +32,6 @@ class TestVisitModel(OffStudyMixin, MetaDataMixin, PreviousVisitMixin, BaseVisit
 
 class OffStudyModel(CrfModelMixin, OffStudyModelMixin, BaseUuidModel):
 
-    registered_subject = models.OneToOneField(RegisteredSubject)
-
     test_visit_model = models.OneToOneField(TestVisitModel)
 
     class Meta:
@@ -42,8 +39,6 @@ class OffStudyModel(CrfModelMixin, OffStudyModelMixin, BaseUuidModel):
 
 
 class DeathReport(CrfModelMixin, DeathReportModelMixin, BaseUuidModel):
-
-    registered_subject = models.OneToOneField(RegisteredSubject)
 
     test_visit_model = models.OneToOneField(TestVisitModel)
 
