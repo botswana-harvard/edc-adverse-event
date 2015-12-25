@@ -4,17 +4,17 @@ from django import forms
 from django.db import models
 
 from edc.entry_meta_data.models import MetaDataMixin
-from edc.subject.registration.models.registered_subject import RegisteredSubject
-from edc_base.model.models.base_uuid_model import BaseUuidModel
-from edc_death_report.forms.death_report_form_mixin import DeathReportFormMixin
-from edc_death_report.models.death_report_mixin import DeathReportModelMixin
+from edc.subject.registration.models import RegisteredSubject
+from edc_base.model.models import BaseUuidModel
+from edc_death_report.forms import DeathReportFormMixin
+from edc_death_report.models import DeathReportModelMixin
 from edc_offstudy.models import OffStudyModelMixin, OffStudyMixin
 from edc_visit_tracking.models import BaseVisitTracking, PreviousVisitMixin, CrfModelMixin
 
 
 class TestVisitModel(OffStudyMixin, MetaDataMixin, PreviousVisitMixin, BaseVisitTracking):
 
-    OFF_STUDY_MODEL = ('edc_death_report', 'OffStudyModel')
+    off_study_model = ('edc_death_report', 'OffStudyModel')
 
     REQUIRES_PREVIOUS_VISIT = True
 
