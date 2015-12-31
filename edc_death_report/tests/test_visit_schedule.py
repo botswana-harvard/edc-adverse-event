@@ -2,7 +2,7 @@ from __future__ import print_function
 
 from collections import OrderedDict
 
-from edc.testing.models import TestConsentWithMixin, TestAliquotType, TestPanel, TestVisit
+from edc_testing.models import TestConsentWithMixin, TestAliquotType, TestPanel, TestVisit
 from edc_constants.constants import REQUIRED, NOT_ADDITIONAL
 from edc_visit_schedule.classes import (
     VisitScheduleConfiguration, EntryTuple, RequisitionPanelTuple, MembershipFormTuple, ScheduleGroupTuple)

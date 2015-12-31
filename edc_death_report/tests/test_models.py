@@ -8,10 +8,10 @@ from edc_base.model.models import BaseUuidModel
 from edc_death_report.forms import DeathReportFormMixin
 from edc_death_report.models import DeathReportModelMixin
 from edc_offstudy.models import OffStudyModelMixin, OffStudyMixin
-from edc_visit_tracking.models import VisitTrackingModelMixin, PreviousVisitMixin, CrfModelMixin
+from edc_visit_tracking.models import VisitModelMixin, PreviousVisitMixin, CrfModelMixin
 
 
-class TestVisitModel(OffStudyMixin, MetaDataMixin, PreviousVisitMixin, VisitTrackingModelMixin):
+class TestVisitModel(OffStudyMixin, MetaDataMixin, PreviousVisitMixin, VisitModelMixin):
 
     off_study_model = ('edc_death_report', 'OffStudyModel')
 

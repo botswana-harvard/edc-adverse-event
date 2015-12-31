@@ -9,9 +9,9 @@ from edc_consent.models import StudySite
 from edc_lab.lab_profile.classes import site_lab_profiles
 from edc_lab.lab_profile.exceptions import AlreadyRegistered as AlreadyRegisteredLabProfile
 from edc.subject.lab_tracker.classes import site_lab_tracker
-from edc.testing.classes import TestAppConfiguration
-from edc.testing.classes import TestLabProfile
-from edc.testing.tests.factories import TestConsentWithMixinFactory
+from edc_testing.classes import TestAppConfiguration
+from edc_testing.classes import TestLabProfile
+from edc_testing.tests.factories import TestConsentWithMixinFactory
 from edc_appointment.models import Appointment
 from edc_constants.constants import MALE
 from edc_registration.tests.factories import RegisteredSubjectFactory
