@@ -3,7 +3,7 @@ from __future__ import print_function
 from django import forms
 from django.db import models
 
-from edc.entry_meta_data.models import MetaDataMixin
+from edc_meta_data.models import CrfMetaDataMixin
 from edc_base.model.models import BaseUuidModel
 from edc_death_report.forms import DeathReportFormMixin
 from edc_death_report.models import DeathReportModelMixin
@@ -11,7 +11,7 @@ from edc_offstudy.models import OffStudyModelMixin, OffStudyMixin
 from edc_visit_tracking.models import VisitModelMixin, PreviousVisitMixin, CrfModelMixin
 
 
-class TestVisitModel(OffStudyMixin, MetaDataMixin, PreviousVisitMixin, VisitModelMixin):
+class TestVisitModel(OffStudyMixin, CrfMetaDataMixin, PreviousVisitMixin, VisitModelMixin):
 
     off_study_model = ('edc_death_report', 'OffStudyModel')
 
@@ -20,7 +20,7 @@ class TestVisitModel(OffStudyMixin, MetaDataMixin, PreviousVisitMixin, VisitMode
     def get_subject_identifier(self):
         return self.appointment.registered_subject.subject_identifier
 
-    def custom_post_update_entry_meta_data(self):
+    def custom_post_update_crf_meta_data(self):
         pass
 
     def get_requires_consent(self):
