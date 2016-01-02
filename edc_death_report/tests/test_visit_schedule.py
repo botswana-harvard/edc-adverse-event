@@ -6,22 +6,22 @@ from edc_testing.models import TestConsentWithMixin, TestAliquotType, TestPanel,
 from edc_constants.constants import REQUIRED, NOT_ADDITIONAL
 from edc_visit_schedule.classes import (
     VisitScheduleConfiguration, CrfTuple, RequisitionPanelTuple, MembershipFormTuple, ScheduleGroupTuple)
-from .test_models import TestVisitModel
+from .test_models import TestDeathVisitModel
 
 
 entries = (
-    CrfTuple(10L, u'testing', u'TestScheduledModel1', REQUIRED, NOT_ADDITIONAL),
-    CrfTuple(20L, u'testing', u'TestScheduledModel2', REQUIRED, NOT_ADDITIONAL),
-    CrfTuple(30L, u'testing', u'TestScheduledModel3', REQUIRED, NOT_ADDITIONAL),
+    CrfTuple(10L, u'edc_testing', u'TestScheduledModel1', REQUIRED, NOT_ADDITIONAL),
+    CrfTuple(20L, u'edc_testing', u'TestScheduledModel2', REQUIRED, NOT_ADDITIONAL),
+    CrfTuple(30L, u'edc_testing', u'TestScheduledModel3', REQUIRED, NOT_ADDITIONAL),
 )
 
 requisitions = (
     RequisitionPanelTuple(
-        10L, u'testing', u'testrequisition', 'Research Blood Draw', 'TEST', 'WB', REQUIRED, NOT_ADDITIONAL),
+        10L, u'edc_testing', u'testrequisition', 'Research Blood Draw', 'TEST', 'WB', REQUIRED, NOT_ADDITIONAL),
     RequisitionPanelTuple(
-        20L, u'testing', u'testrequisition', 'Viral Load', 'TEST', 'WB', REQUIRED, NOT_ADDITIONAL),
+        20L, u'edc_testing', u'testrequisition', 'Viral Load', 'TEST', 'WB', REQUIRED, NOT_ADDITIONAL),
     RequisitionPanelTuple(
-        30L, u'testing', u'testrequisition', 'Microtube', 'STORAGE', 'WB', REQUIRED, NOT_ADDITIONAL),
+        30L, u'edc_testing', u'testrequisition', 'Microtube', 'STORAGE', 'WB', REQUIRED, NOT_ADDITIONAL),
 )
 
 
@@ -51,7 +51,7 @@ class TestVisitSchedule(VisitScheduleConfiguration):
             'window_upper_bound': 0,
             'window_upper_bound_unit': 'D',
             'grouping': 'group1',
-            'visit_tracking_model': TestVisitModel,
+            'visit_tracking_model': TestDeathVisitModel,
             'schedule_group': 'schedule-group-1',
             'instructions': None,
             'requisitions': requisitions,
@@ -66,7 +66,7 @@ class TestVisitSchedule(VisitScheduleConfiguration):
              'window_upper_bound': 0,
              'window_upper_bound_unit': 'D',
              'grouping': 'group1',
-             'visit_tracking_model': TestVisitModel,
+             'visit_tracking_model': TestDeathVisitModel,
              'schedule_group': 'schedule-group-1',
              'instructions': None,
             'requisitions': requisitions,

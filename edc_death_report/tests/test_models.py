@@ -11,7 +11,7 @@ from edc_offstudy.models import OffStudyModelMixin, OffStudyMixin
 from edc_visit_tracking.models import VisitModelMixin, PreviousVisitMixin, CrfModelMixin
 
 
-class TestVisitModel(OffStudyMixin, CrfMetaDataMixin, PreviousVisitMixin, VisitModelMixin):
+class TestDeathVisitModel(OffStudyMixin, CrfMetaDataMixin, PreviousVisitMixin, VisitModelMixin):
 
     off_study_model = ('edc_death_report', 'OffStudyModel')
 
@@ -32,7 +32,7 @@ class TestVisitModel(OffStudyMixin, CrfMetaDataMixin, PreviousVisitMixin, VisitM
 
 class OffStudyModel(CrfModelMixin, OffStudyModelMixin, BaseUuidModel):
 
-    test_visit_model = models.OneToOneField(TestVisitModel)
+    test_visit_model = models.OneToOneField(TestDeathVisitModel)
 
     class Meta:
         app_label = 'edc_death_report'
@@ -40,7 +40,7 @@ class OffStudyModel(CrfModelMixin, OffStudyModelMixin, BaseUuidModel):
 
 class DeathReport(CrfModelMixin, DeathReportModelMixin, BaseUuidModel):
 
-    test_visit_model = models.OneToOneField(TestVisitModel)
+    test_visit_model = models.OneToOneField(TestDeathVisitModel)
 
     class Meta:
         app_label = 'edc_death_report'

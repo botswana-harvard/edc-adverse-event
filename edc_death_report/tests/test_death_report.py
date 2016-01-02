@@ -10,7 +10,7 @@ from edc_constants.constants import YES, NO
 from edc_death_report.models.reason_hospitalized import ReasonHospitalized
 
 from .base_test import BaseTest
-from .test_models import DeathReportForm, TestVisitModel, DeathReport
+from .test_models import DeathReportForm, TestDeathVisitModel, DeathReport
 
 
 class TestDeathReport(BaseTest):
@@ -21,7 +21,7 @@ class TestDeathReport(BaseTest):
             self.registered_subject.registration_datetime = timezone.now() - relativedelta(weeks=3)
             self.registered_subject.dob = self.test_consent.dob
             self.registered_subject.save()
-        test_visit_model = TestVisitModel.objects.create(
+        test_visit_model = TestDeathVisitModel.objects.create(
             appointment=self.appointment,
             report_datetime=timezone.now())
         self.data = {
@@ -45,7 +45,7 @@ class TestDeathReport(BaseTest):
     def test_create_model_instance(self):
         with self.assertRaises(Exception) as cm:
             try:
-                test_visit_model = TestVisitModel.objects.get(
+                test_visit_model = TestDeathVisitModel.objects.get(
                     appointment=self.appointment)
                 DeathReport.objects.create(
                     test_visit_model=test_visit_model,
