@@ -5,7 +5,6 @@ from dateutil.relativedelta import relativedelta
 
 from django.test import TestCase
 
-from edc.subject.lab_tracker.classes import site_lab_tracker
 from edc_appointment.models import Appointment
 from edc_consent.models.consent_type import ConsentType
 from edc_constants.constants import MALE
@@ -27,7 +26,6 @@ class BaseTest(TestCase):
             site_lab_profiles.register(TestLabProfile())
         except AlreadyRegisteredLabProfile:
             pass
-        site_lab_tracker.autodiscover()
 
         self.configuration = TestAppConfiguration()
         self.configuration.prepare()

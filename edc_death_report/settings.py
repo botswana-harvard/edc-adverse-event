@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'edc_consent',
     'edc_crypto_fields',
     'edc_death_report',
+    'edc_export',
     'edc_lab.lab_clinic_api',
     'edc_meta_data',
     'edc_offstudy',
