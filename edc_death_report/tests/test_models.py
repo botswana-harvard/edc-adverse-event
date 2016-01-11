@@ -11,9 +11,11 @@ from edc_offstudy.models import OffStudyModelMixin, OffStudyMixin
 from edc_visit_tracking.models import VisitModelMixin, PreviousVisitMixin, CrfModelMixin
 
 
-class TestDeathVisitModel(OffStudyMixin, CrfMetaDataMixin, PreviousVisitMixin, VisitModelMixin):
+class TestDeathVisitModel(OffStudyMixin, CrfMetaDataMixin, PreviousVisitMixin, VisitModelMixin, BaseUuidModel):
 
     off_study_model = ('edc_death_report', 'OffStudyModel')
+
+    death_report_model = ('edc_death_report', 'DeathReport')
 
     REQUIRES_PREVIOUS_VISIT = True
 
