@@ -20,9 +20,6 @@ class TestDeathVisitModel(OffStudyMixin, CrfMetaDataMixin, PreviousVisitMixin, V
     def get_subject_identifier(self):
         return self.appointment.registered_subject.subject_identifier
 
-    def custom_post_update_crf_meta_data(self):
-        pass
-
     def get_requires_consent(self):
         return False
 
