@@ -9,11 +9,11 @@ from edc_death_report.models.medical_responsibility import MedicalResponsibility
 from edc_constants.constants import YES, NO
 from edc_death_report.models.reason_hospitalized import ReasonHospitalized
 
-from .base_test import BaseTest
+from .base_test_case import BaseTestCase
 from .test_models import DeathReportForm, TestDeathVisitModel, DeathReport
 
 
-class TestDeathReport(BaseTest):
+class TestDeathReport(BaseTestCase):
 
     def setUp(self):
         super(TestDeathReport, self).setUp()

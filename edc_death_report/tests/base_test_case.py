@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 from django.test import TestCase
 
 from edc_appointment.models import Appointment
+from edc_base.utils import edc_base_startup
 from edc_consent.models.consent_type import ConsentType
 from edc_constants.constants import MALE
 from edc_lab.lab_profile.classes import site_lab_profiles
@@ -19,9 +20,10 @@ from edc_visit_schedule.models import VisitDefinition
 from .test_visit_schedule import TestVisitSchedule
 
 
-class BaseTest(TestCase):
+class BaseTestCase(TestCase):
 
     def setUp(self):
+        edc_base_startup()
         try:
             site_lab_profiles.register(TestLabProfile())
         except AlreadyRegisteredLabProfile:

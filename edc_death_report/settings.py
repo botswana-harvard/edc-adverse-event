@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'edc_sync',
     'edc_testing',
     'edc_visit_schedule',
+    'lab_requisition',
 )
 
 MIDDLEWARE_CLASSES = (
