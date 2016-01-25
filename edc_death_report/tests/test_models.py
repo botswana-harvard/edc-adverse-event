@@ -17,8 +17,6 @@ class TestDeathVisitModel(OffStudyMixin, CrfMetaDataMixin, PreviousVisitMixin, V
 
     death_report_model = ('edc_death_report', 'DeathReport')
 
-    REQUIRES_PREVIOUS_VISIT = True
-
     def get_subject_identifier(self):
         return self.appointment.registered_subject.subject_identifier
 
