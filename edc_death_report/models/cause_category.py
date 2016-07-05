@@ -1,7 +1,8 @@
-from edc_base.model.models import BaseListModel
+from edc_base.model.models.base_model import BaseModel
+from edc_base.model.models.list_model_mixin import ListModelMixin
 
 
-class CauseCategory (BaseListModel):
+class CauseCategory (ListModelMixin, BaseModel):
 
     class Meta:
         ordering = ['display_index']
