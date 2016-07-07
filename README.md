@@ -8,7 +8,7 @@ A death report model class is declared in your app just like any other CRF:
 
 	from django.db import models
 	from edc_base.model.models import BaseUuidModel
-	from edc_base.audit_trail import AuditTrail
+	from simple_history.models import HistoricalRecords as AuditTrail
 	from edc_death_report.models import DeathReportModelMixin
 	from edc_meta_data.managers import CrfMetaDataManager
 	from edc_visit_tracking.models import CrfModelMixin
