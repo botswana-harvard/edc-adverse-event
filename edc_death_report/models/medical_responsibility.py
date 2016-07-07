@@ -1,7 +1,7 @@
-from edc_base.model.models import BaseListModel
+from edc_base.model.models import ListModelMixin
 
 
-class MedicalResponsibility (BaseListModel):
+class MedicalResponsibility (ListModelMixin):
 
     class Meta:
         ordering = ['display_index']
