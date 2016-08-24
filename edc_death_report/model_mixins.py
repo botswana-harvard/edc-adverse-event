@@ -4,11 +4,7 @@ from edc_base.model.fields import OtherCharField
 from edc_base.model.validators.date import date_not_before_study_start, date_not_future
 from edc_constants.choices import YES_NO
 
-from .cause import Cause
-from .cause_category import CauseCategory
-from .diagnosis_code import DiagnosisCode
-from .medical_responsibility import MedicalResponsibility
-from .reason_hospitalized import ReasonHospitalized
+from .models import Cause, CauseCategory, DiagnosisCode, MedicalResponsibility, ReasonHospitalized
 
 
 class DeathReportModelMixin(models.Model):
