@@ -1,8 +1,9 @@
 from django.db import models
 
 from edc_base.model.fields import OtherCharField
-from edc_base.model.validators.date import date_not_before_study_start, date_not_future
+from edc_base.model.validators.date import date_not_future
 from edc_constants.choices import YES_NO
+from edc_protocol.validators import date_not_before_study_start
 
 from .models import Cause, CauseCategory, DiagnosisCode, MedicalResponsibility, ReasonHospitalized
 
