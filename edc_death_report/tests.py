@@ -1,6 +1,7 @@
 from dateutil.relativedelta import relativedelta
 
 from django.utils import timezone
+from django.test import TestCase
 
 from edc_death_report.models.cause import Cause
 from edc_death_report.models.cause_category import CauseCategory
@@ -9,14 +10,13 @@ from edc_death_report.models.medical_responsibility import MedicalResponsibility
 from edc_constants.constants import YES, NO
 from edc_death_report.models.reason_hospitalized import ReasonHospitalized
 
-from .base_test_case import BaseTestCase
 from .test_models import DeathReportForm, TestDeathVisitModel, DeathReport
 
 
-class TestDeathReport(BaseTestCase):
+class TestDeathReport(TestCase):
 
+    """Broken"""
     def setUp(self):
-        super(TestDeathReport, self).setUp()
         if not self.registered_subject.registration_datetime:
             self.registered_subject.registration_datetime = timezone.now() - relativedelta(weeks=3)
             self.registered_subject.dob = self.test_consent.dob
