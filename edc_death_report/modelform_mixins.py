@@ -3,7 +3,7 @@ from django import forms
 from edc_constants.constants import YES, NO
 
 
-class DeathReportFormMixin(object):
+class DeathReportFormMixin:
 
     def clean(self):
         cleaned_data = super(DeathReportFormMixin, self).clean()
