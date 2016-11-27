@@ -1,15 +1,12 @@
 from dateutil.relativedelta import relativedelta
 
-from django.utils import timezone
 from django.test import TestCase
 
-from edc_death_report.models.cause import Cause
-from edc_death_report.models.cause_category import CauseCategory
-from edc_death_report.models.diagnosis_code import DiagnosisCode
-from edc_death_report.models.medical_responsibility import MedicalResponsibility
+from edc_base.utils import get_utcnow
 from edc_constants.constants import YES, NO
 from edc_death_report.models.reason_hospitalized import ReasonHospitalized
 
+from .models import Cause, CauseCategory, DiagnosisCode, MedicalResponsibility
 from .test_models import DeathReportForm, TestDeathVisitModel, DeathReport
 
 
@@ -18,16 +15,16 @@ class TestDeathReport(TestCase):
     """Broken"""
     def setUp(self):
         if not self.registered_subject.registration_datetime:
-            self.registered_subject.registration_datetime = timezone.now() - relativedelta(weeks=3)
+            self.registered_subject.registration_datetime = get_utcnow() - relativedelta(weeks=3)
             self.registered_subject.dob = self.test_consent.dob
             self.registered_subject.save()
         test_visit_model = TestDeathVisitModel.objects.create(
             appointment=self.appointment,
-            report_datetime=timezone.now())
+            report_datetime=get_utcnow())
         self.data = {
             'test_visit_model': test_visit_model.id,
             'comment': None,
-            'death_date': timezone.now().date(),
+            'death_date': get_utcnow().date(),
             'illness_duration': 1,
             'perform_autopsy': NO,
             'cause': Cause.objects.all().first().id,
@@ -39,7 +36,7 @@ class TestDeathReport(TestCase):
             'participant_hospitalized': YES,
             'reason_hospitalized': ReasonHospitalized.objects.all().first().id,
             'days_hospitalized': 3,
-            'report_datetime': timezone.now(),
+            'report_datetime': get_utcnow(),
         }
 
     def test_create_model_instance(self):
@@ -49,8 +46,8 @@ class TestDeathReport(TestCase):
                     appointment=self.appointment)
                 DeathReport.objects.create(
                     test_visit_model=test_visit_model,
-                    report_datetime=timezone.now(),
-                    death_date=(timezone.now() - relativedelta(weeks=1)).date(),
+                    report_datetime=get_utcnow(),
+                    death_date=(get_utcnow() - relativedelta(weeks=1)).date(),
                     cause=Cause.objects.all().first(),
                     cause_category=CauseCategory.objects.all().first(),
                     diagnosis_code=DiagnosisCode.objects.all().first(),
@@ -66,11 +63,11 @@ class TestDeathReport(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_form_validate_date_of_death_and_registration_datetime(self):
-        self.data['death_date'] = timezone.now().date() - relativedelta(weeks=2)
+        self.data['death_date'] = (get_utcnow() - relativedelta(weeks=2)).date()
         self.data['participant_hospitalized'] = YES
         self.data['reason_hospitalized'] = ReasonHospitalized.objects.all().first().id
         self.data['days_hospitalized'] = 1
-        self.registered_subject.registration_datetime = timezone.now() - relativedelta(weeks=1)
+        self.registered_subject.registration_datetime = get_utcnow() - relativedelta(weeks=1)
         self.registered_subject.save()
         form = DeathReportForm(data=self.data)
         form.is_valid()
@@ -78,12 +75,12 @@ class TestDeathReport(TestCase):
             'Death date cannot be before date registered', form.errors.get('__all__') or [])
 
     def test_form_validate_date_of_death_and_dob(self):
-        self.data['death_date'] = timezone.now().date() - relativedelta(years=2)
+        self.data['death_date'] = (get_utcnow() - relativedelta(years=2)).date()
         self.data['participant_hospitalized'] = YES
         self.data['reason_hospitalized'] = ReasonHospitalized.objects.all().first().id
         self.data['days_hospitalized'] = 1
-        self.registered_subject.registration_datetime = timezone.now() - relativedelta(weeks=1)
-        self.registered_subject.dob = timezone.now() - relativedelta(years=1)
+        self.registered_subject.registration_datetime = get_utcnow() - relativedelta(weeks=1)
+        self.registered_subject.dob = get_utcnow() - relativedelta(years=1)
         self.registered_subject.save()
         form = DeathReportForm(data=self.data)
         form.is_valid()
