@@ -21,7 +21,8 @@ class DeathReportModelMixin(models.Model):
         verbose_name=(
             'What is the primary source of cause of death information? '
             '(if multiple source of information, '
-            'list one with the smallest number closest to the top of the list) '))
+            'list one with the smallest number closest to the top of the list) '),
+        on_delete=models.PROTECT)
 
     cause_other = OtherCharField(
         verbose_name="if other specify...",
@@ -44,7 +45,8 @@ class DeathReportModelMixin(models.Model):
         to=CauseCategory,
         verbose_name=("Based on the above description, what category "
                       "best defines the major cause of death? "),
-        help_text="")
+        help_text="",
+        on_delete=models.PROTECT)
 
     cause_category_other = OtherCharField(
         verbose_name="if other specify...",
@@ -61,7 +63,8 @@ class DeathReportModelMixin(models.Model):
         verbose_name="if yes, hospitalized, what was the primary reason for hospitalisation? ",
         help_text="",
         blank=True,
-        null=True)
+        null=True,
+        on_delete=models.PROTECT)
 
     reason_hospitalized_other = models.TextField(
         verbose_name=("if other illness or pathogen specify or non "
@@ -96,7 +99,8 @@ class DeathReportModelMixin(models.Model):
         DiagnosisCode,
         max_length=25,
         verbose_name="Please code the cause of death as one of the following:",
-        help_text="Use diagnosis code from Diagnosis Reference Listing")
+        help_text="Use diagnosis code from Diagnosis Reference Listing",
+        on_delete=models.PROTECT)
 
     diagnosis_code_other = OtherCharField(
         verbose_name="if other specify...",
@@ -108,7 +112,8 @@ class DeathReportModelMixin(models.Model):
         verbose_name=(
             "Who was responsible for primary medical care of the "
             "participant during the month prior to death?"),
-        help_text="")
+        help_text="",
+        on_delete=models.PROTECT)
 
     class Meta:
         abstract = True
