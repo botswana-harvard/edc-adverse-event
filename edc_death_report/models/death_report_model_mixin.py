@@ -1,8 +1,8 @@
 from django.db import models
+from edc_constants.choices import YES_NO
 
 from edc_base.model.fields import OtherCharField
 from edc_base.model.validators.date import date_not_before_study_start, date_not_future
-from edc_constants.choices import YES_NO
 
 from .cause import Cause
 from .cause_category import CauseCategory
@@ -98,6 +98,8 @@ class DeathReportModelMixin(models.Model):
     diagnosis_code = models.ForeignKey(
         DiagnosisCode,
         max_length=25,
+        blank=True,
+        null=True,
         verbose_name="Please code the cause of death as one of the following:",
         help_text="Use diagnosis code from Diagnosis Reference Listing")
 
