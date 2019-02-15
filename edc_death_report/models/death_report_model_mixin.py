@@ -95,19 +95,6 @@ class DeathReportModelMixin(models.Model):
         choices=YES_NO,
         verbose_name="Will an autopsy be performed later  ")
 
-    diagnosis_code = models.ForeignKey(
-        DiagnosisCode,
-        max_length=25,
-        blank=True,
-        null=True,
-        verbose_name="Please code the cause of death as one of the following:",
-        help_text="Use diagnosis code from Diagnosis Reference Listing")
-
-    diagnosis_code_other = OtherCharField(
-        verbose_name="if other specify...",
-        blank=True,
-        null=True)
-
     medical_responsibility = models.ForeignKey(
         MedicalResponsibility,
         verbose_name=(
